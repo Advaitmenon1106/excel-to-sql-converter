@@ -1,8 +1,10 @@
-from pandas import read_excel, DataFrame, ExcelFile
+from pandas import read_excel, DataFrame, ExcelFile, read_csv
+
 def Read_Excel(path:str):
     file = ExcelFile(path)
     sheets = file.sheet_names
-    df = file.parse(sheets[0])
+    
+def Clean_Dataframe(df:DataFrame):
     df_cleaned = df.loc[df.first_valid_index():].dropna(axis=1)
     if df.equals(df_cleaned):
         return df
@@ -10,4 +12,3 @@ def Read_Excel(path:str):
         df_cleaned.columns = df_cleaned.iloc[0].to_list()
         df_cleaned = df_cleaned.iloc[1:]
         return df_cleaned.reset_index(drop=True)
-
